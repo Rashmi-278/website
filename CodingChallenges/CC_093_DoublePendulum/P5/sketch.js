@@ -5,19 +5,19 @@
 // Double Pendulum
 // https://youtu.be/uWzPe_S-RVE
 
-let r1 = 125;
-let r2 = 125;
-let m1 = 10;
-let m2 = 10;
-let a1 = 0;
-let a2 = 0;
-let a1_v = 0;
-let a2_v = 0;
-let g = 1;
+let r1 = 125; // length of first pendulum
+let r2 = 125; // length of second pendulum
+let m1 = 10; //  mass of first pendulum excluding weight of string
+let m2 = 10; // mass of second pendulum excluding weight of string
+let a1 = 0; // angle formed by first pendulum and normal - angle1
+let a2 = 0; //angle formed by second pendulum and normal - angle2
+let a1_v = 0; //angular velocity of pendulum1
+let a2_v = 0; //angular velocity of pendulum2
+let g = 1; //gravitational constant (realistic value not considered for simplicity )
 
-let px2 = -1;
-let py2 = -1;
-let cx, cy;
+let px2 = -1; // previous position of second pendulum sphere - x offset
+let py2 = -1; // previous position of second pendulum sphere - y offset
+let cx, cy; //centre of x and y for background
 
 let buffer;
 
@@ -38,7 +38,7 @@ function draw() {
   background(175);
   imageMode(CORNER);
   image(buffer, 0, 0, width, height);
-
+   // numerators are moduled 
   let num1 = -g * (2 * m1 + m2) * sin(a1);
   let num2 = -m2 * g * sin(a1 - 2 * a2);
   let num3 = -2 * sin(a1 - a2) * m2;
@@ -75,12 +75,12 @@ function draw() {
   a2_v += a2_a;
   a1 += a1_v;
   a2 += a2_v;
-
-  // a1_v *= 0.99;
-  // a2_v *= 0.99;
+// as momentum increases  , slowly pendulum comes to rest
+  // a1_v *= 0.99; // for drag
+  // a2_v *= 0.99; // for drag
 
   buffer.stroke(0);
-  if (frameCount > 1) {
+  if (frameCount > 1) { //Not drawing th first line
     buffer.line(px2, py2, x2, y2);
   }
 
